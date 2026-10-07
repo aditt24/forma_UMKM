@@ -732,10 +732,6 @@
                     Produk Pilihan
                 </h2>
 
-                <p>
-                    Beberapa koleksi favorit dari FORMA.
-                </p>
-
             </div>
 
 

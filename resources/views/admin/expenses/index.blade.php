@@ -5,10 +5,10 @@
         <div>
             <h1>Pengeluaran</h1>
             <p class="muted">
-                Catat dan pantau seluruh pengeluaran operasional bisnis.
+                Catat dan pantau seluruh pengeluaran bisnis.
             </p>
         </div>
-        <a class="btn" href="{{ route('admin.expenses.create') }}">+ Catat Operasional</a>
+        <a class="btn" href="{{ route('admin.expenses.create') }}">+ Catat</a>
     </div>
 
     <div class="table-wrap">

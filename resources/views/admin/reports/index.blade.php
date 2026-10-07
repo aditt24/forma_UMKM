@@ -46,19 +46,4 @@
                 <p class="muted">Belum ada data.</p>
             @endforelse
         </div>
-
-        <div class="card">
-            <h3>Low Stock</h3>
-            @forelse($low as $v)
-                <p>
-                    {{ $v->nama_produk }} {{ $v->ukuran }}/{{ $v->warna }}
-                    <b style="float:right">
-                        {{ $v->stok }} ≤ {{ $v->stok_minimum }}
-                    </b>
-                </p>
-            @empty
-                <p class="muted">Tidak ada low stock.</p>
-            @endforelse
-        </div>
-    </div>
 @endsection
