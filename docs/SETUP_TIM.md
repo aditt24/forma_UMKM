@@ -36,22 +36,29 @@ copy .env.example .env
 php artisan key:generate
 ```
 
-Ubah bagian database di `.env`:
+`.env.example` sudah berisi pengaturan yang benar: MySQL, database `umkm`,
+user `root`, tanpa password, serta session/cache memakai `file`. Kalau MySQL
+kamu memakai password, isi `DB_PASSWORD` di `.env`.
 
-```dotenv
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=umkm
-DB_USERNAME=root
-DB_PASSWORD=
-```
+> Jangan ubah `SESSION_DRIVER`, `CACHE_STORE`, dan `QUEUE_CONNECTION` ke
+> `database`: proyek ini tidak punya tabel `sessions`, `cache`, dan `jobs`,
+> sehingga website akan error.
 
-Lalu buat database `umkm` kosong dan jalankan:
+Lalu buat database `umkm` kosong (atau impor file SQL di Cara A), dan
+untuk mengisinya lewat Laravel jalankan:
 
 ```powershell
 php artisan migrate:fresh --seed
 ```
+
+Jalankan website:
+
+```powershell
+php artisan serve
+```
+
+Login demo: username `admin` (admin), `siti` (kasir), `budi` (customer).
+Kata sandinya ada di `database/seeders/OltpDemoSeeder.php`.
 
 Hasilnya **sama persis** dengan file SQL (angka acak seeder memakai seed tetap).
 `migrate:fresh` menghapus semua tabel di database itu, jadi jangan dijalankan
