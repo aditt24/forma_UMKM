@@ -116,6 +116,12 @@ class SaleService
                     'jumlah' => $item['qty'],
                     'harga_satuan' =>
                         $item['unit_price'],
+                    'harga_normal' =>
+                        $item['normal_price'],
+                    'persen_diskon' =>
+                        $item['discount'],
+                    'id_promo' =>
+                        $item['promo_id'],
                 ]);
             }
 
@@ -526,6 +532,15 @@ class SaleService
 
                     'harga_satuan' =>
                         $item['unit_price'],
+
+                    'harga_normal' =>
+                        $item['normal_price'],
+
+                    'persen_diskon' =>
+                        $item['discount'],
+
+                    'id_promo' =>
+                        $item['promo_id'],
                 ]);
 
                 DB::table('varian_produk')

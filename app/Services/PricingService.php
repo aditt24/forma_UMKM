@@ -10,22 +10,36 @@ class PricingService
         private PointService $points
     ) {}
 
+    /**
+     * Promo aktif dengan diskon terbesar untuk satu produk.
+     * Jika diskon sama besar, dipilih id_promo yang lebih kecil
+     * supaya hasilnya selalu konsisten.
+     */
+    public function activePromo(string $productId): ?object
+    {
+        return DB::table('promo_produk as pp')
+            ->join(
+                'promo as pr',
+                'pp.id_promo',
+                '=',
+                'pr.id_promo'
+            )
+            ->where('pp.id_produk', $productId)
+            ->where('pr.tanggal_mulai', '<=', now())
+            ->where('pr.tanggal_selesai', '>=', now())
+            ->orderByDesc('pr.persen_diskon')
+            ->orderBy('pr.id_promo')
+            ->select('pr.id_promo', 'pr.persen_diskon')
+            ->first();
+    }
+
     public function activeDiscount(string $productId): float
     {
-        return (float) (
-            DB::table('promo_produk as pp')
-                ->join(
-                    'promo as pr',
-                    'pp.id_promo',
-                    '=',
-                    'pr.id_promo'
-                )
-                ->where('pp.id_produk', $productId)
-                ->where('pr.tanggal_mulai', '<=', now())
-                ->where('pr.tanggal_selesai', '>=', now())
-                ->max('pr.persen_diskon')
-            ?? 0
-        );
+        $promo = $this->activePromo($productId);
+
+        return $promo
+            ? (float) $promo->persen_diskon
+            : 0.0;
     }
 
     public function variant(string $variantId): ?array
@@ -59,9 +73,13 @@ class PricingService
             return null;
         }
 
-        $discount = $this->activeDiscount(
+        $promo = $this->activePromo(
             $variant->id_produk
         );
+
+        $discount = $promo
+            ? (float) $promo->persen_diskon
+            : 0.0;
 
         $finalPrice = round(
             (float) $variant->harga_jual
@@ -72,6 +90,8 @@ class PricingService
         return [
             'row' => $variant,
             'discount' => $discount,
+            'promo_id' => $promo?->id_promo,
+            'normal_price' => (float) $variant->harga_jual,
             'unit_price' => $finalPrice,
         ];
     }
@@ -106,6 +126,8 @@ class PricingService
                 'variant' => $price['row'],
                 'qty' => $quantity,
                 'discount' => $price['discount'],
+                'promo_id' => $price['promo_id'],
+                'normal_price' => $price['normal_price'],
                 'unit_price' => $price['unit_price'],
                 'line_total' => $lineTotal,
             ];

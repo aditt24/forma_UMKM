@@ -229,6 +229,7 @@ class PurchaseController extends Controller
                 ->where('id_pembelian', $id)
                 ->update([
                     'status_pembelian' => 'DITERIMA',
+                    'tanggal_diterima' => now(),
                     'updated_at' => now(),
                 ]);
 

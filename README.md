@@ -1,3 +1,15 @@
+# Forma UMKM — Sistem Monitoring Transaksi Keuangan dan Persediaan UMKM Pakaian
+
+Proyek Basis Data Kelompok F (UTS: database OLTP dan website, UAS: Data Warehouse).
+
+**Anggota tim UAS, mulai dari sini:**
+
+- [docs/SETUP_TIM.md](docs/SETUP_TIM.md): cara mendapatkan database `umkm` (impor file SQL atau lewat Laravel), isi data, dan aturan data.
+- [docs/KONSEP_UAS_DATA_WAREHOUSE.md](docs/KONSEP_UAS_DATA_WAREHOUSE.md): konsep lengkap star schema, ETL, OLAP, dashboard, dan struktur laporan.
+- [database/dump/umkm_oltp.sql](database/dump/umkm_oltp.sql): database lengkap (struktur + data) siap diimpor.
+
+---
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
